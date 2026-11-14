@@ -66,7 +66,7 @@ test('window new tab', async ({ page, context, browser }) => {
     const text = await window1.locator("//*[@class='installCode_lxde']").first().textContent();
     await expect(text).toBe('npm init playwright@latest');
     await expect(page.getByTestId('tab-count').first()).toHaveText('1');
-    await browser.close();//it will close entire browser
+    //await browser.close();//it will close entire browser
     await window1.close()//close current tab
     //await page.bringToFront();
     await expect(page.getByTestId('tab-count').first()).toHaveText('0');
@@ -150,6 +150,15 @@ test('keyboard actions',async({page})=>{
     await page.getByTestId('keyboard-copy-destination').click();
     await page.keyboard.press('Control+V');
 })
+
+test('alert',async({page})=>{
+    page.on('dialog',async dialog=>{
+    await dialog.accept();
+    })
+    await page.locator("//*[@id='btn-alert']").click();
+});
+
+
 
 
 
